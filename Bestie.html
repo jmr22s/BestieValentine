@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bestie Fun Day ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(to bottom right, #dbeafe, #f0f9ff);
+}
+
+/* VIDEO BACKGROUND */
+#bgVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.8);
+}
+
+/* HEADER */
+h1 {
+    margin-top: 40px;
+    font-size: 2.5em;
+    color: #fff;
+    text-shadow:
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,  
+        -2px  2px 0 #000,  
+         2px  2px 0 #000; /* black outline */
+}
+
+/* MESSAGE */
+.message {
+    color: #fff;
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 15px auto;
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; /* black outline */
+}
+
+/* IMAGE */
+.collage {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.collage img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+/* BUTTONS */
+.buttons {
+    margin-top: 60px;
+    position: relative;
+    width: 100%;
+    height: 80px;
+}
+
+/* BUTTON STYLE */
+button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.2s;
+    position: absolute;
+    text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000; /* black outline */
+}
+
+#yesBtn {
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #3b82f6;
+    color: white;
+}
+
+#yesBtn:hover {
+    background-color: #2563eb;
+    transform: translateX(-50%) scale(1.05);
+}
+
+#noBtn {
+    left: 50%;
+    top: 0;
+    background-color: #64748b;
+    color: white;
+    transform: translateX(100px); /* starting offset */
+}
+
+/* SUCCESS MESSAGE */
+.success-message {
+    display: none;
+    font-size: 1.8em;
+    color: #fff;
+    margin-top: 30px;
+    text-shadow:
+        -2px -2px 0 #000,  
+         2px -2px 0 #000,  
+        -2px  2px 0 #000,  
+         2px  2px 0 #000; /* black outline */
+}
+
+/* Falling red hearts */
+.heart {
+    position: fixed;
+    top: -10px;
+    font-size: 20px;
+    animation: fall linear forwards;
+    pointer-events: none;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Video -->
+<video id="bgVideo" autoplay muted loop playsinline>
+    <source src="softredheart.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<h1> Bestie Fun Day 😎</h1>
+
+<p class="message">
+You're lucky you got one, because of your good vibes 😏❤️  
+I bet you can’t click “No”!
+</p>
+
+<div class="collage">
+    <img src="https://i.postimg.cc/x1gVGr3x/vecteezy-happy-valentines-day-card-with-heart-vector-illustration.jpg" alt="Fun Valentine card">
+</div>
+
+<div class="buttons">
+    <button id="yesBtn">You know you want to 😉</button>
+    <button id="noBtn">Try me 😎</button>
+</div>
+
+<div class="success-message" id="successMessage">
+    You had no choice! ❤️ Let the good vibes continue.
+</div>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+
+// NO button movement
+noBtn.addEventListener("mouseover", function() {
+    const btnWidth = noBtn.offsetWidth;
+    const btnHeight = noBtn.offsetHeight;
+
+    const maxX = 500; // horizontal range
+    const maxY = 200;  // vertical range
+
+    const randomX = Math.random() * maxX - maxX/2;
+    const randomY = Math.random() * maxY - maxY/2;
+
+    noBtn.style.transform = `translate(${100 + randomX}px, ${randomY}px)`;
+});
+
+// Falling red hearts
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+    heart.style.fontSize = (Math.random() * 10 + 18) + "px";
+
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 7000);
+}
+
+// YES button click
+yesBtn.addEventListener("click", function() {
+    document.querySelector(".buttons").style.display = "none";
+    document.querySelector(".success-message").style.display = "block";
+    setInterval(createHeart, 400);
+});
+</script>
+
+</body>
+</html>
